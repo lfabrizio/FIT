@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/navbar.component"
-import ExercisesList from "./components/exercises-list.component";
-import EditExercise from "./components/edit-exercise.component";
-import CreateExercise from "./components/create-exercise.component";
+import FitList from "./components/fit-list.component";
+import EditFit from "./components/edit-fit.component";
+import CreateFit from "./components/create-fit.component";
 import CreateUser from "./components/create-user.component";
 
 
@@ -15,9 +15,9 @@ function App() {
       <div className="container">
       <Navbar />
       <br/>
-      <Route path="/" exact component={ExercisesList} />
-      <Route path="/edit/:id" component={EditExercise} />
-      <Route path="/create" component={CreateExercise} />
+      <Route path="/" exact component={FitList} />
+      <Route path="/edit/:id" component={EditFit} />
+      <Route path="/create" component={CreateFit} />
       <Route path="/user" component={CreateUser} />
       </div>
     </Router>
