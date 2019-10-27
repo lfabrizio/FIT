@@ -3,56 +3,56 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Exercise = props => (
+const Fit = props => (
   <tr>
-    <td>{props.exercise.username}</td>
-    <td>{props.exercise.description}</td>
-    <td>{props.exercise.duration}</td>
-    <td>{props.exercise.date.substring(0,10)}</td>
+    <td>{props.fit.username}</td>
+    <td>{props.fit.description}</td>
+    <td>{props.fit.duration}</td>
+    <td>{props.fit.date.substring(0,10)}</td>
     <td>
-      <Link to={"/edit/"+props.exercise._id}>edit</Link> | <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</a>
+      <Link to={"/edit/"+props.fit._id}>edit</Link> | <a href="#" onClick={() => { props.deleteFit(props.fit._id) }}>delete</a>
     </td>
   </tr>
 )
 
-export default class ExercisesList extends Component {
+export default class FitList extends Component {
   constructor(props) {
     super(props);
 
-    this.deleteExercise = this.deleteExercise.bind(this)
+    this.deleteFit = this.deleteFit.bind(this)
 
-    this.state = {exercises: []};
+    this.state = {Fit: []};
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/exercises/')
+    axios.get('http://localhost:5000/fit/')
       .then(response => {
-        this.setState({ exercises: response.data })
+        this.setState({ fit: response.data })
       })
       .catch((error) => {
         console.log(error);
       })
   }
 
-  deleteExercise(id) {
-    axios.delete('http://localhost:5000/exercises/'+id)
+  deleteFit(id) {
+    axios.delete('http://localhost:5000/fit/'+id)
       .then(response => { console.log(response.data)});
 
     this.setState({
-      exercises: this.state.exercises.filter(el => el._id !== id)
+      fit: this.state.fit.filter(el => el._id !== id)
     })
   }
 
-  exerciseList() {
-    return this.state.exercises.map(currentexercise => {
-      return <Exercise exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id}/>;
+  fitList() {
+    return this.state.fit.map(currentfit => {
+      return <Fit fit={currentfit} deleteFit={this.deleteFit} key={currentfit._id}/>;
     })
   }
 
   render() {
     return (
       <div>
-        <h3>Logged Exercises</h3>
+        <h3>Logged challenges</h3>
         <table className="table">
           <thead className="thead-light">
             <tr>
@@ -64,7 +64,7 @@ export default class ExercisesList extends Component {
             </tr>
           </thead>
           <tbody>
-            { this.exerciseList() }
+            { this.fitList() }
           </tbody>
         </table>
       </div>
